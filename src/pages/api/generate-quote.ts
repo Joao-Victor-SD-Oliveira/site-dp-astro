@@ -1,42 +1,42 @@
 import type { APIRoute } from 'astro';
-import puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
 
 export const GET: APIRoute = async ({ request, url }) => {
-  // PONTO DE DEPURAÇÃO: Vamos ver a URL exata que o servidor está recebendo.
-  console.log('API RECEBEU A REQUISIÇÃO PARA A URL:', url.href);
-
-  // 1. Recebe os dados diretamente dos parâmetros da URL
+  // 1. Recebe os dados da URL
   const params = url.searchParams;
   const name = params.get('name') || 'Não informado';
   const total = params.get('total') || 'R$ 0,00';
   const services = params.get('services')?.split('|') || [];
-
   const data = { name, total, services };
 
-  // 2. Monta a URL da nossa página-molde
   const templateParams = new URLSearchParams();
   templateParams.set('name', data.name);
   templateParams.set('total', data.total);
   templateParams.set('services', data.services.join(','));
-  
   const quoteUrl = `${url.origin}/quote-template?${templateParams.toString()}`;
 
-  // 3. O processo do Puppeteer
-  const browser = await puppeteer.launch({ 
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-  const page = await browser.newPage();
+  let browser;
 
   try {
+    // 2. Inicia o Puppeteer com a configuração final e correta
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      // As linhas 'defaultViewport' e 'headless' foram removidas
+    });
+
+    const page = await browser.newPage();
     await page.goto(quoteUrl, { waitUntil: 'networkidle0' });
 
+    // 3. Gera o PDF
     const pdfBuffer = await page.pdf({
       format: 'A4',
       printBackground: true,
       margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' }
     });
 
+    // 4. Retorna o PDF
     return new Response(pdfBuffer, {
       status: 200,
       headers: {
@@ -47,8 +47,10 @@ export const GET: APIRoute = async ({ request, url }) => {
 
   } catch (error) {
     console.error(error);
-    return new Response('Falha ao gerar o PDF com o Puppeteer.', { status: 500 });
+    return new Response(`Falha ao gerar o PDF com o Puppeteer. Erro: ${(error as Error).message}`, { status: 500 });
   } finally {
-    await browser.close();
+    if (browser) {
+      await browser.close();
+    }
   }
 };

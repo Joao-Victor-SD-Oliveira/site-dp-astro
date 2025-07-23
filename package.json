@@ -12,6 +12,7 @@
     "astro": "^5.12.1"
   },
   "devDependencies": {
-    "puppeteer": "^24.15.0"
+    "@sparticuz/chromium": "^138.0.2",
+    "puppeteer-core": "^24.15.0"
   }
 }
