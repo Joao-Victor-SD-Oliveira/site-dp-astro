@@ -1,0 +1,76 @@
+---
+const testimonials = [
+  { quote: 'Serviço impecável e atendimento personalizado. Finalmente encontrei uma assessoria que entende as necessidades da minha pequena empresa.', author: 'Mariana Silva' },
+  { quote: 'A equipe é extremamente competente e ágil. Resolveram questões complexas de folha de pagamento que outros não conseguiram. Recomendo!', author: 'Teodoro Montier' },
+  { quote: 'Desde que contratamos a assessoria, tenho muito mais tranquilidade para focar no meu negócio. Profissionalismo e confiança definem o trabalho.', author: 'José Alves' },
+  { quote: 'Organização e clareza em todos os processos. A gestão do eSocial ficou muito mais simples e segura. Excelente serviço.', author: 'Carla Souza' },
+];
+---
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">O que dizem sobre nós</h2>
+    <div class="slider-container">
+      {testimonials.map(testimonial => (
+        <div class="testimonial-card">
+          <p class="quote">"{testimonial.quote}"</p>
+          <p class="author">- {testimonial.author}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    background-color: #0f4a4a;
+    color: white;
+    padding: 5rem 0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .slider-container {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto; /* A mágica da rolagem horizontal */
+    padding-bottom: 1.5rem; /* Espaço para a barra de rolagem não ficar colada */
+    /* Esconde a barra de rolagem para um visual mais limpo */
+    scrollbar-width: none; /* Firefox */
+  }
+  .slider-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+  .testimonial-card {
+    flex: 0 0 80%; /* Em mobile, cada card ocupa 80% da largura */
+    padding: 2rem;
+    border: 1px solid rgba(197, 169, 138, 0.2);
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  .quote {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .author {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #c5a98a; /* Nossa cor de destaque */
+  }
+
+  /* Em telas maiores, mostramos 3 depoimentos de uma vez */
+  @media (min-width: 768px) {
+    .testimonial-card {
+      flex-basis: calc(33.333% - 1rem); /* 3 cards por linha, considerando o gap */
+    }
+  }
+</style>

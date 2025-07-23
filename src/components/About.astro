@@ -1,0 +1,78 @@
+---
+---
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="text-content">
+        <h2 class="section-title">Quem Somos?</h2>
+        <p class="description">
+          Somos uma assessoria que carrega com orgulho a excelência em nossos serviços. Com uma sólida formação e anos de experiência no mercado, nossa equipe é dedicada a oferecer soluções completas e inovadoras em Departamento Pessoal e RH.
+        </p>
+        <p class="description">
+          Com uma visão humanizada e foco nos detalhes, acreditamos na importância de construir parcerias de confiança. Nosso compromisso é com o seu sucesso, oferecendo um atendimento personalizado e soluções jurídicas que respeitam as individualidades do seu negócio, sempre com a máxima ética e transparência.
+        </p>
+        <p class="signature">
+          DP ESTRATÉGICO
+        </p>
+      </div>
+      <div class="image-content">
+        <img src="/img/about-us.jpg" alt="Retrato da equipe ou fundador da empresa" class="about-image"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    background-color: white;
+    padding: 5rem 1rem;
+    /* Adicionaremos um padrão sutil ao fundo depois, se desejar */
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-grid {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+  }
+  .description {
+    font-family: 'Lato', sans-serif;
+    color: #4b5563;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .signature {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #0f4a4a;
+    margin-top: 2rem;
+  }
+  .image-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .about-image {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* A mágica do formato orgânico */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  /* Responsividade: em telas maiores, cria as duas colunas */
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

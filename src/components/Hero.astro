@@ -1,0 +1,94 @@
+---
+// Esta área de cima é para código JavaScript/TypeScript, se precisarmos.
+// Por enquanto, a deixaremos vazia.
+---
+
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="title">
+      Departamento Pessoal sem Complicações
+    </h1>
+    <p class="subtitle">
+      Focamos na burocracia para que você possa focar no crescimento do seu negócio e da sua equipe.
+    </p>
+    <a href="#servicos" class="cta-button">
+      Conheça Nossos Planos
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Aqui escrevemos CSS puro! */
+  /* E o melhor: este CSS só se aplica a este componente, sem vazar para o resto do site. */
+
+  .hero-section {
+    position: relative;
+    min-height: 100vh; /* Ocupa a altura toda da tela */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+    background-image: url('/img/officebanner.jpg'); /* Caminho direto a partir da pasta public */
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Este é o nosso overlay escuro, feito com CSS puro */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0f4a4a; /* Nossa cor verde corporativo */
+    opacity: 0.8;
+  }
+
+  .hero-content {
+    position: relative; /* Garante que o conteúdo fique na frente do overlay */
+    z-index: 10;
+  }
+
+  .title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem; /* 40px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.125rem; /* 18px */
+    max-width: 60ch; /* Limita a largura do texto para melhor leitura */
+    margin: 0 auto 2rem auto;
+    color: #e5e7eb; /* Um branco levemente acinzentado */
+  }
+
+  .cta-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #c5a98a; /* Nossa cor de destaque */
+    color: #111827; /* Um cinza escuro para o texto do botão */
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px; /* Totalmente arredondado */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #dcc1a5; /* Uma cor um pouco mais clara no hover */
+  }
+
+  /* Media Query para telas maiores */
+  @media (min-width: 768px) {
+    .title {
+      font-size: 4rem; /* 64px */
+    }
+    .subtitle {
+      font-size: 1.25rem; /* 20px */
+    }
+  }
+</style>

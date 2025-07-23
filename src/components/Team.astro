@@ -1,0 +1,95 @@
+---
+// Adaptando os nomes e cargos para o seu negócio
+const teamMembers = [
+  { name: 'Juliana Damasceno', role: 'Especialista DP / RH', imgSrc: '/img/juliana2.jpg' },
+  { name: 'Chayane Aguiar', role: 'Especialista DP', imgSrc: '/img/chay2.jpg' },
+  { name: 'Eliane Barauna', role: 'Especialista RH', imgSrc: '/img/eliane.jpg' },
+];
+---
+<section class="team-section">
+  <div class="container">
+    <h2 class="section-title">Conheça nosso time!</h2>
+    <p class="section-subtitle">
+      Contamos com uma equipe especializada para melhor te atender e trabalhar em soluções personalizadas para cada caso!
+    </p>
+    <div class="team-grid">
+      {teamMembers.map(member => (
+        <div class="team-card">
+          <img src={member.imgSrc} alt={`Retrato de ${member.name}`} class="team-photo" />
+          <div class="name-tag">
+            <h4 class="member-name">{member.name}</h4>
+            <p class="member-role">{member.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-section {
+    padding: 5rem 1rem;
+    background-color: white; /* Alterado para branco puro */
+    border-top: 1px solid #00000011; /* Adicionando uma linha sutil de separação */
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #3E646F;
+    margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    font-family: 'Lato', sans-serif;
+    color: #729398;
+    max-width: 60ch;
+    margin: 0 auto 3rem auto;
+  }
+  .team-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .team-card {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(62, 100, 111, 0.1);
+  }
+  .team-photo {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .name-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(62, 100, 111, 0.7);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+  
+  .member-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 0 0.1rem 0;
+    color: #FFFAEE;
+  }
+  
+  .member-role {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    color: #a8dadc;
+  }
+</style>

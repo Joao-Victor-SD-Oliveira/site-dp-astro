@@ -1,0 +1,108 @@
+---
+// Para replicar o design 2x2, criamos um quarto serviço.
+const servicos = [
+  {
+    icon: '/icons/briefcase.svg',
+    title: 'Assessoria de DP',
+    description: 'Gestão completa de admissões, folha de pagamento, eSocial, encargos, férias e rescisões.'
+  },
+  {
+    icon: '/icons/users.svg',
+    title: 'BPO de Recursos Humanos',
+    description: 'Recrutamento e seleção, gestão de exames, controle de ponto, homologações e suporte.'
+  },
+  {
+    icon: '/icons/package.svg',
+    title: 'Gestão Completa DP & RH',
+    description: 'A solução integrada que combina nossas especialidades para máxima eficiência e tranquilidade.'
+  },
+  {
+    icon: '/icons/magnifying-glass.svg', // Você precisará baixar um ícone para este
+    title: 'Consultoria Personalizada',
+    description: 'Análise e otimização dos seus processos atuais de DP e RH para reduzir custos e riscos.'
+  }
+];
+---
+<section id="servicos" class="services-section">
+  <div class="container">
+    <h2 class="section-title">Nossas Soluções para sua Empresa</h2>
+    <div class="services-grid">
+      {servicos.map(servico => (
+        <div class="service-card">
+          <img src={servico.icon} alt="" class="service-icon" />
+          <div class="card-text-content">
+            <h3 class="card-title">{servico.title}</h3>
+            <p class="card-description">{servico.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    padding: 5rem 1rem;
+    background-color: #0f4a4a; /* FUNDO ESCURO, como no exemplo */
+    color: white;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .services-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .service-card {
+    /* O cartão agora tem o conteúdo alinhado à esquerda, como no exemplo */
+    display: flex;
+    align-items: flex-start; /* Alinha o ícone e o texto no topo */
+    gap: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(197, 169, 138, 0.2); /* Borda sutil como no exemplo */
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.03); /* Fundo quase transparente para dar profundidade */
+  }
+
+  .service-icon {
+    height: 2.5rem; /* Ícones menores */
+    width: 2.5rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0; /* Impede que o ícone encolha */
+    filter: invert(85%) sepia(15%) saturate(500%) hue-rotate(350deg) brightness(95%) contrast(90%); /* Colore o SVG para o tom bege */
+  }
+
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-description {
+    font-family: 'Lato', sans-serif;
+    color: #d1d5db;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  /* Em telas de tablet para cima, a grade muda para 2 colunas */
+  @media (min-width: 768px) {
+    .services-grid {
+      /* Grade 2x2 como no exemplo */
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
