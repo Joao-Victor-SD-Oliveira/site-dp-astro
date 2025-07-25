@@ -1,9 +1,29 @@
 ---
 const servicos = [
-  { icon: '/icons/briefcase.svg', title: 'Assessoria de DP', description: 'Gestão completa de admissões, folha de pagamento, eSocial, encargos, férias e rescisões.' },
-  { icon: '/icons/users.svg', title: 'BPO de Recursos Humanos', description: 'Recrutamento e seleção, gestão de exames, controle de ponto, homologações e suporte.' },
-  { icon: '/icons/package.svg', title: 'Gestão Completa DP & RH', description: 'A solução integrada que combina nossas especialidades para máxima eficiência e tranquilidade.' },
-  { icon: '/icons/magnifying-glass.svg', title: 'Consultoria Personalizada', description: 'Análise e otimização dos seus processos atuais de DP e RH para reduzir custos e riscos.' }
+  { 
+    icon: '/icons/briefcase.svg', 
+    title: 'Assessoria de DP', 
+    description: 'Gestão completa de admissões, folha de pagamento, eSocial, encargos, férias e rescisões.',
+    slug: '/servicos/assessoria-dp'
+  },
+  { 
+    icon: '/icons/users.svg', 
+    title: 'BPO de Recursos Humanos', 
+    description: 'Recrutamento e seleção, gestão de exames, controle de ponto, homologações e suporte.',
+    slug: '/servicos/bpo-rh'
+  },
+  { 
+    icon: '/icons/package.svg', 
+    title: 'Gestão Completa DP & RH', 
+    description: 'A solução integrada que combina nossas especialidades para máxima eficiência e tranquilidade.',
+    slug: '/servicos/gestao-completa'
+  },
+  { 
+    icon: '/icons/magnifying-glass.svg', 
+    title: 'Consultoria Personalizada', 
+    description: 'Análise e otimização dos seus processos atuais de DP e RH para reduzir custos e riscos.',
+    slug: '/servicos/consultoria-personalizada'
+  }
 ];
 ---
 <section class="unified-hero-section">
@@ -15,16 +35,6 @@ const servicos = [
       <p class="subtitle">
         Prestamos serviços completos nas áreas de departamento pessoal e RH, com atendimento personalizado e compromisso com resultados.
       </p>
-      
-      <a 
-        href="https://wa.me/5511980289892" 
-        class="whatsapp-button" 
-        target="_blank" 
-        rel="noopener noreferrer"
-      >
-        <img src="/icons/whatsapp1.svg" alt="Ícone do WhatsApp" class="whatsapp-icon" />
-        <span>Entre em Contato!</span>
-      </a>
     </div>
 
     <div class="services-content">
@@ -36,6 +46,7 @@ const servicos = [
             <div class="card-text-content">
               <h3 class="card-title">{servico.title}</h3>
               <p class="card-description">{servico.description}</p>
+              <a href={servico.slug} class="learn-more-btn">Saiba Mais</a>
             </div>
           </div>
         ))}
@@ -50,6 +61,13 @@ const servicos = [
     <div class="chevron-down"></div>
   </div>
 </section>
+
+<style is:global>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
 <style>
   .unified-hero-section {
@@ -87,41 +105,7 @@ const servicos = [
     line-height: 1.7;
     color: #a8dadc;
   }
-
-  /* ESTILOS DO BOTÃO WHATSAPP ATUALIZADOS */
-  .whatsapp-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /* Padding aumentado para o botão ficar maior */
-    padding: 1rem 2rem; 
-    margin-top: 2rem;
-    
-    background-color: rgba(29, 53, 87, 0.3);
-    border: 1px solid rgba(168, 218, 220, 0.2);
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
-
-    color: #FFFAEE;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .whatsapp-button:hover {
-    background-color: rgba(29, 53, 87, 0.5);
-  }
-
-  .whatsapp-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 0.75rem;
-    /* Filtro adicionado para igualar a cor dos outros ícones */
-    filter: invert(80%) sepia(10%) saturate(200%) hue-rotate(170deg) brightness(110%) contrast(90%);
-  }
   
-  /* ESTILOS DOS SERVIÇOS */
   .services-content {
     margin-top: 5rem;
   }
@@ -144,7 +128,7 @@ const servicos = [
   
   .service-card {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column; 
     gap: 1.5rem;
     padding: 2rem;
     border: 1px solid rgba(168, 218, 220, 0.2);
@@ -160,9 +144,14 @@ const servicos = [
   .service-icon {
     height: 2.5rem;
     width: 2.5rem;
-    margin-top: 0.25rem;
     flex-shrink: 0;
     filter: invert(80%) sepia(10%) saturate(200%) hue-rotate(170deg) brightness(110%) contrast(90%);
+  }
+
+  .card-text-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
   }
 
   .card-title {
@@ -180,6 +169,25 @@ const servicos = [
     font-size: 0.9rem;
   }
   
+  .learn-more-btn {
+    display: inline-block;
+    margin-top: auto; 
+    padding: 0.6rem 1.5rem;
+    background-color: #FFFAEE;
+    color: #3E646F;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    align-self: center; 
+    transition: background-color 0.3s ease;
+  }
+
+  .learn-more-btn:hover {
+    background-color: #e9e4d9;
+  }
+
   .section-divider {
     position: absolute;
     bottom: 0;

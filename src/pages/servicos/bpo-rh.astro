@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="BPO de Recursos Humanos - DP Estratégico">
+  <main class="service-detail-page">
+    
+    <section class="service-hero">
+      <div class="container-narrow">
+        <h1 class="service-title">BPO de Recursos Humanos</h1>
+        <p class="service-subtitle">Terceirize suas rotinas de RH e ganhe um parceiro estratégico para a gestão de pessoas na sua empresa.</p>
+      </div>
+    </section>
+
+    <div class="service-content-wrapper">
+      <div class="container content-grid">
+        <div class="content-text">
+          <h2 class="content-heading">Otimize seu RH, Potencialize sua Equipe</h2>
+          <p>
+            Com nosso serviço de BPO (Business Process Outsourcing) de RH, sua empresa conta com especialistas para cuidar de processos essenciais, desde o recrutamento até o suporte contínuo ao colaborador. Liberamos seu tempo para que você possa se dedicar às estratégias de crescimento, enquanto garantimos uma gestão de RH eficiente e humanizada.
+          </p>
+        </div>
+        <div class="service-list-card">
+          <h3 class="list-heading">Serviços Incluídos:</h3>
+          <ul class="service-list">
+            <li>Recrutamento e seleção</li>
+            <li>Gestão e controle de exames médicos relacionados ao trabalho</li>
+            <li>Gestão de ponto eletrônico</li>
+            <li>Gestão de férias</li>
+            <li>Gestão de afastamentos e benefícios do INSS</li>
+            <li>Homologações</li>
+            <li>Gerenciamento de benefícios (VT, VR, saúde)</li>
+            <li>Suporte trabalhista (atendimento ao colaborador)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="service-cta">
+      <div class="container-narrow">
+        <h2 class="cta-title">Quer um RH mais Estratégico?</h2>
+        <p class="cta-subtitle">Vamos conversar sobre como podemos transformar a gestão de pessoas na sua empresa.</p>
+        <a href="https://wa.me/5511980289892" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+          <img src="/icons/whatsapp1.svg" alt="Ícone do WhatsApp" class="whatsapp-icon" />
+          <span>Entre em Contato</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  /* Estilos Gerais da Página */
+  .service-detail-page {
+    background-color: #f4f6f8;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Seção 1: Cabeçalho */
+  .service-hero {
+    background-color: #3E646F;
+    color: #FFFAEE;
+    padding: 5rem 1rem;
+    text-align: center;
+  }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin: 0;
+  }
+  .service-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    color: #a8dadc;
+    margin-top: 1rem;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Seção 2: Conteúdo */
+  .service-content-wrapper {
+    padding: 5rem 1rem;
+    background-color: white;
+  }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 768px) {
+    .content-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: flex-start;
+    }
+  }
+
+  .content-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    color: #3E646F;
+    margin-top: 0;
+  }
+  .content-text p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #3D636E;
+  }
+
+  .service-list-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 2rem;
+  }
+  .list-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #3E646F;
+    font-size: 1.25rem;
+    margin-top: 0;
+  }
+  .service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .service-list li {
+    font-family: 'Lato', sans-serif;
+    color: #3D636E;
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .service-list li:last-child {
+    border-bottom: none;
+  }
+  .service-list li::before {
+    content: '✓';
+    color: #3E646F;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  /* Seção 3: CTA */
+  .service-cta {
+    background-color: #3E646F;
+    color: white;
+    padding: 5rem 1rem;
+    text-align: center;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #FFFAEE;
+    margin-top: 0;
+  }
+  .cta-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    color: #a8dadc;
+    margin-top: 0.5rem;
+  }
+  .whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem; 
+    margin-top: 2rem;
+    background-color: rgba(29, 53, 87, 0.3);
+    border: 1px solid rgba(168, 218, 220, 0.2);
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+    color: #FFFAEE;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .whatsapp-button:hover {
+    background-color: rgba(29, 53, 87, 0.5);
+  }
+  .whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.75rem;
+    filter: invert(80%) sepia(10%) saturate(200%) hue-rotate(170deg) brightness(110%) contrast(90%);
+  }
+</style>
