@@ -10,12 +10,21 @@ import Layout from '../layouts/Layout.astro';
         <p class="subtitle">Preencha os dados abaixo para gerar um orçamento instantâneo.</p>
       </div>
 
-      <form id="calculator-form" class="form" action="/api/generate-quote" method="GET">
+      <form id="calculator-form" class="form">
         <fieldset class="form-group">
           <legend class="group-title">1. Dados da Empresa</legend>
           <div class="input-wrapper">
             <label for="client-name">Nome do Cliente / Empresa</label>
             <input type="text" id="client-name" name="name" placeholder="Digite o nome aqui" required />
+          </div>
+          <div class="input-wrapper">
+            <label for="company-business-type">Tipo de Empresa</label>
+            <select id="company-business-type" name="company-business-type">
+              <option value="Serviço">Serviço</option>
+              <option value="Comércio">Comércio</option>
+              <option value="Indústria">Indústria</option>
+              <option value="Construtora">Construtora</option>
+            </select>
           </div>
           <div class="input-wrapper">
             <label for="employee-count">Número de Funcionários</label>
@@ -34,17 +43,20 @@ import Layout from '../layouts/Layout.astro';
 
         <fieldset class="form-group">
           <legend class="group-title">3. Adicionais</legend>
-          <div class="checkbox-wrapper"><input type="checkbox" id="addon-prolabore" name="addon-prolabore"><label for="addon-prolabore">Cálculo de Pró-labore para Sócios</label></div>
-          <div class="checkbox-wrapper"><input type="checkbox" id="addon-domestica" name="addon-domestica"><label for="addon-domestica">eSocial para Empregada Doméstica</label></div>
+          <div class="input-wrapper addon-item">
+            <label for="prolabore-count">Quantidade de Sócios (Pró-labore)</label>
+            <input type="number" id="prolabore-count" name="prolabore-count" min="0" value="0" />
+          </div>
+          <div class="input-wrapper addon-item">
+            <label for="domestica-count">Quantidade de Empregadas Domésticas (eSocial)</label>
+            <input type="number" id="domestica-count" name="domestica-count" min="0" value="0" />
+          </div>
         </fieldset>
-
-        <input type="hidden" id="services" name="services" />
-        <input type="hidden" id="total" name="total" />
         
         <div class="result-wrapper">
           <h2 class="result-title">Valor da Mensalidade:</h2>
           <div id="result-display" class="result-price">R$ 0,00</div>
-          <button type="submit" class="pdf-button">Gerar Orçamento em PDF</button>
+          <button type="button" id="generate-quote-btn" class="pdf-button">Visualizar Orçamento para Impressão</button>
         </div>
       </form>
     </div>
@@ -52,30 +64,35 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script is:inline>
-  // O SCRIPT AGORA É MAIS SIMPLES
   const form = document.getElementById('calculator-form');
+  const clientNameInput = document.getElementById('client-name');
+  const companyTypeInput = document.getElementById('company-business-type');
   const employeeCountInput = document.getElementById('employee-count');
   const resultDisplay = document.getElementById('result-display');
+  const prolaboreCountInput = document.getElementById('prolabore-count');
+  // CAPTURA O NOVO CAMPO NUMÉRICO DA DOMÉSTICA
+  const domesticaCountInput = document.getElementById('domestica-count');
   const allInputs = form.querySelectorAll('input, select');
-  
-  // Referências para os inputs escondidos
-  const servicesInput = document.getElementById('services');
-  const totalInput = document.getElementById('total');
+  const generateQuoteBtn = document.getElementById('generate-quote-btn');
+
+  let currentServices = [];
+  let currentTotalString = "R$ 0,00";
 
   function calculateTotal() {
     const employees = parseInt(employeeCountInput.value) || 0;
     const mainServiceElement = form.querySelector('input[name="main-service"]:checked');
     if (!mainServiceElement) return;
+
     const mainServiceValue = mainServiceElement.value;
-    const proLaboreChecked = document.getElementById('addon-prolabore').checked;
-    const domesticaChecked = document.getElementById('addon-domestica').checked;
+    const prolaboreCount = parseInt(prolaboreCountInput.value) || 0;
+    // LÊ O VALOR DO CAMPO NUMÉRICO DA DOMÉSTICA
+    const domesticaCount = parseInt(domesticaCountInput.value) || 0;
     
-    let currentServices = [];
+    currentServices = [];
     let basePrice = 0;
-
     const mainServiceText = mainServiceElement.nextElementSibling.querySelector('strong').innerText;
-    currentServices.push(`${mainServiceText} (até ${employees} funcionários)`);
-
+    
+    currentServices.push(mainServiceText);
     if (mainServiceValue === 'dp') {
       if (employees <= 10) { basePrice = 500; } else if (employees <= 20) { basePrice = 900; } else if (employees <= 50) { basePrice = 1600; } else { basePrice = 2500; }
     } else if (mainServiceValue === 'rh') {
@@ -83,52 +100,74 @@ import Layout from '../layouts/Layout.astro';
     } else if (mainServiceValue === 'completo') {
       if (employees <= 10) { basePrice = 800; } else if (employees <= 20) { basePrice = 1400; } else if (employees <= 50) { basePrice = 2500; } else { basePrice = 3500; }
     }
+    
     let addOnPrice = 0;
-    if (proLaboreChecked) { addOnPrice += 30; currentServices.push('Adicional: Pró-labore para Sócios'); }
-    if (domesticaChecked) { addOnPrice += 150; currentServices.push('Adicional: eSocial para Empregada Doméstica'); }
+    if (prolaboreCount > 0) {
+      addOnPrice += prolaboreCount * 30;
+      currentServices.push(`Adicional: Pró-labore para ${prolaboreCount} Sócio(s)`);
+    }
+    // ATUALIZA A LÓGICA DE CÁLCULO DA DOMÉSTICA
+    if (domesticaCount > 0) {
+      addOnPrice += domesticaCount * 150; // R$ 150 por empregada
+      currentServices.push(`Adicional: eSocial para ${domesticaCount} Empregada(s) Doméstica(s)`);
+    }
     
     const totalPrice = basePrice + addOnPrice;
-    const formattedPrice = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    
-    // Atualiza o display visual
-    resultDisplay.innerText = formattedPrice;
-
-    // ATUALIZA OS INPUTS ESCONDIDOS QUE SERÃO ENVIADOS
-    totalInput.value = formattedPrice;
-    servicesInput.value = currentServices.join('|');
+    currentTotalString = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    resultDisplay.innerText = currentTotalString;
   }
+
+  function openQuotePreview() {
+    const name = clientNameInput.value || 'Não informado';
+    const companyType = companyTypeInput.value;
+    const employeeCount = employeeCountInput.value || '0';
+    const total = currentTotalString;
+    const services = currentServices.join(',');
+
+    const params = new URLSearchParams({
+      name,
+      companyType,
+      employeeCount,
+      total,
+      services
+    });
+    
+    const quoteUrl = `/quote-template?${params.toString()}`;
+    window.open(quoteUrl, '_blank');
+  }
+
+  generateQuoteBtn.addEventListener('click', openQuotePreview);
 
   allInputs.forEach(input => {
     input.addEventListener('input', calculateTotal);
-    input.addEventListener('change', calculateTotal);
   });
   
-  calculateTotal(); // Cálculo inicial
+  calculateTotal();
 </script>
 
 <style is:global>
-/* Os estilos não precisam de nenhuma alteração */
 .calculator-page { padding: 4rem 1rem; background-color: white; }
 .container { max-width: 800px; margin: 0 auto; }
 .header { text-align: center; margin-bottom: 3rem; }
 .title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #3E646F; }
 .subtitle { font-size: 1.1rem; color: #729398; margin-top: 0.5rem; }
-.form { background-color: #FFFAEE; padding: 2rem; border-radius: 8px; border: 1px solid #72939822; }
+.form { background-color: #f9fafb; padding: 2.5rem; border-radius: 8px; border: 1px solid #e5e7eb; }
 .form-group { border: none; padding: 0; margin: 0 0 2rem 0; }
-.group-title { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #3E646F; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #729398; }
-.input-wrapper { margin-bottom: 1rem; }
-.input-wrapper label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
-input[type="number"], input[type="text"], select { width: 100%; padding: 0.75rem; border: 1px solid #729398; border-radius: 4px; font-size: 1rem; background-color: white; box-sizing: border-box; }
+.group-title { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #3E646F; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb; }
+.input-wrapper { margin-bottom: 1.5rem; }
+.input-wrapper:last-child { margin-bottom: 0; }
+.input-wrapper label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #3D636E; }
+input[type="number"], input[type="text"], select { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; background-color: white; box-sizing: border-box; }
 .radio-card-group { display: grid; gap: 1rem; }
 .radio-card { display: flex; }
 .radio-card input[type="radio"] { display: none; }
-.radio-card label { width: 100%; padding: 1.25rem; border: 2px solid #729398; border-radius: 6px; cursor: pointer; transition: all 0.2s ease-in-out; }
+.radio-card label { width: 100%; padding: 1.25rem; border: 2px solid #d1d5db; border-radius: 6px; cursor: pointer; transition: all 0.2s ease-in-out; }
 .radio-card label strong { display: block; font-size: 1.1rem; }
 .radio-card label span { font-size: 0.9rem; color: #3D636E; }
 .radio-card input[type="radio"]:checked + label { background-color: #3E646F; border-color: #3E646F; color: white; }
 .radio-card input[type="radio"]:checked + label span { color: #a8dadc; }
-.checkbox-wrapper { display: flex; align-items: center; gap: 0.75rem; background-color: #FFF9EB; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; }
-.checkbox-wrapper input[type="checkbox"] { width: 1.25rem; height: 1.25rem; }
+.addon-item { background-color: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #e5e7eb; }
+.addon-item:last-child { margin-bottom: 0; }
 .result-wrapper { margin-top: 3rem; padding: 2rem; background-color: #3E646F; color: white; text-align: center; border-radius: 8px; }
 .result-title { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; margin: 0; }
 .result-price { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; margin-top: 0.5rem; }

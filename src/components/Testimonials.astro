@@ -1,9 +1,12 @@
 ---
 const testimonials = [
-  { quote: 'Serviço impecável e atendimento personalizado. Finalmente encontrei uma assessoria que entende as necessidades da minha pequena empresa.', author: 'Mariana Silva' },
-  { quote: 'A equipe é extremamente competente e ágil. Resolveram questões complexas de folha de pagamento que outros não conseguiram. Recomendo!', author: 'Teodoro Montier' },
-  { quote: 'Desde que contratamos a assessoria, tenho muito mais tranquilidade para focar no meu negócio. Profissionalismo e confiança definem o trabalho.', author: 'José Alves' },
-  { quote: 'Organização e clareza em todos os processos. A gestão do eSocial ficou muito mais simples e segura. Excelente serviço.', author: 'Carla Souza' },
+  { quote: `Serviço impecável e atendimento personalizado.
+Finalmente encontrei uma assessoria que entende as necessidades da minha pequena empresa.`, author: 'Ciclecia Souza' },
+  { quote: `A equipe é extremamente competente e ágil.
+Resolveram questões complexas de folha de pagamento que outros não conseguiram.
+Recomendo!`, author: 'João Victor' },
+  { quote: `Desde que contratamos a assessoria, tenho muito mais tranquilidade para focar no meu negócio.
+Profissionalismo e confiança definem o trabalho.`, author: 'José Silva' },
 ];
 ---
 <section class="testimonials-section">
@@ -22,7 +25,7 @@ const testimonials = [
 
 <style>
   .testimonials-section {
-    background-color: #0f4a4a;
+    background-color: #3E646F;
     color: white;
     padding: 5rem 0;
   }
@@ -40,20 +43,19 @@ const testimonials = [
   .slider-container {
     display: flex;
     gap: 1.5rem;
-    overflow-x: auto; /* A mágica da rolagem horizontal */
-    padding-bottom: 1.5rem; /* Espaço para a barra de rolagem não ficar colada */
-    /* Esconde a barra de rolagem para um visual mais limpo */
-    scrollbar-width: none; /* Firefox */
+    overflow-x: auto;
+    padding-bottom: 1.5rem;
+    scrollbar-width: none;
   }
   .slider-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, and Opera */
+    display: none;
   }
   .testimonial-card {
-    flex: 0 0 80%; /* Em mobile, cada card ocupa 80% da largura */
+    flex: 0 0 80%;
     padding: 2rem;
     border: 1px solid rgba(197, 169, 138, 0.2);
     border-radius: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(29, 53, 87, 0.5);
   }
   .quote {
     font-family: 'Lato', sans-serif;
@@ -64,13 +66,15 @@ const testimonials = [
   .author {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    color: #c5a98a; /* Nossa cor de destaque */
+    color: #a8dadc;
   }
 
   /* Em telas maiores, mostramos 3 depoimentos de uma vez */
   @media (min-width: 768px) {
-    .testimonial-card {
-      flex-basis: calc(33.333% - 1rem); /* 3 cards por linha, considerando o gap */
+    .slider-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow-x: visible; /* Remove a rolagem no desktop */
     }
   }
 </style>

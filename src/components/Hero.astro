@@ -1,94 +1,230 @@
 ---
-// Esta área de cima é para código JavaScript/TypeScript, se precisarmos.
-// Por enquanto, a deixaremos vazia.
+const servicos = [
+  { icon: '/icons/briefcase.svg', title: 'Assessoria de DP', description: 'Gestão completa de admissões, folha de pagamento, eSocial, encargos, férias e rescisões.' },
+  { icon: '/icons/users.svg', title: 'BPO de Recursos Humanos', description: 'Recrutamento e seleção, gestão de exames, controle de ponto, homologações e suporte.' },
+  { icon: '/icons/package.svg', title: 'Gestão Completa DP & RH', description: 'A solução integrada que combina nossas especialidades para máxima eficiência e tranquilidade.' },
+  { icon: '/icons/magnifying-glass.svg', title: 'Consultoria Personalizada', description: 'Análise e otimização dos seus processos atuais de DP e RH para reduzir custos e riscos.' }
+];
 ---
+<section class="unified-hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="title">
+        Assessoria de DP com Ética e Eficiência
+      </h1>
+      <p class="subtitle">
+        Prestamos serviços completos nas áreas de departamento pessoal e RH, com atendimento personalizado e compromisso com resultados.
+      </p>
+      
+      <a 
+        href="https://wa.me/5511980289892" 
+        class="whatsapp-button" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <img src="/icons/whatsapp1.svg" alt="Ícone do WhatsApp" class="whatsapp-icon" />
+        <span>Entre em Contato!</span>
+      </a>
+    </div>
 
-<section class="hero-section">
-  <div class="hero-content">
-    <h1 class="title">
-      Departamento Pessoal sem Complicações
-    </h1>
-    <p class="subtitle">
-      Focamos na burocracia para que você possa focar no crescimento do seu negócio e da sua equipe.
-    </p>
-    <a href="#servicos" class="cta-button">
-      Conheça Nossos Planos
-    </a>
+    <div class="services-content">
+      <h2 class="services-title">Nossas Soluções para sua Empresa</h2>
+      <div class="services-grid">
+        {servicos.map(servico => (
+          <div class="service-card">
+            <img src={servico.icon} alt="" class="service-icon" />
+            <div class="card-text-content">
+              <h3 class="card-title">{servico.title}</h3>
+              <p class="card-description">{servico.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,0 C480,150 960,150 1440,0 L1440,150 L0,150 Z" class="shape-fill"></path>
+    </svg>
+    <div class="chevron-down"></div>
   </div>
 </section>
 
 <style>
-  /* Aqui escrevemos CSS puro! */
-  /* E o melhor: este CSS só se aplica a este componente, sem vazar para o resto do site. */
-
-  .hero-section {
-    position: relative;
-    min-height: 100vh; /* Ocupa a altura toda da tela */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  .unified-hero-section {
+    background-color: #3E646F;
     color: white;
-    padding: 1rem;
-    background-image: url('/img/officebanner.jpg'); /* Caminho direto a partir da pasta public */
-    background-size: cover;
-    background-position: center;
+    padding: 6rem 1rem 5rem 1rem;
+    position: relative;
   }
 
-  /* Este é o nosso overlay escuro, feito com CSS puro */
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #0f4a4a; /* Nossa cor verde corporativo */
-    opacity: 0.8;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .hero-content {
-    position: relative; /* Garante que o conteúdo fique na frente do overlay */
-    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto 5rem auto;
   }
 
   .title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem; /* 40px */
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
     font-weight: 700;
+    line-height: 1.2;
+    color: #FFFAEE;
     margin-bottom: 1rem;
   }
 
   .subtitle {
     font-family: 'Lato', sans-serif;
-    font-size: 1.125rem; /* 18px */
-    max-width: 60ch; /* Limita a largura do texto para melhor leitura */
-    margin: 0 auto 2rem auto;
-    color: #e5e7eb; /* Um branco levemente acinzentado */
+    font-size: 1.2rem;
+    max-width: 60ch;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: #a8dadc;
   }
 
-  .cta-button {
+  /* ESTILOS DO BOTÃO WHATSAPP ATUALIZADOS */
+  .whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Padding aumentado para o botão ficar maior */
+    padding: 1rem 2rem; 
+    margin-top: 2rem;
+    
+    background-color: rgba(29, 53, 87, 0.3);
+    border: 1px solid rgba(168, 218, 220, 0.2);
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+
+    color: #FFFAEE;
     font-family: 'Montserrat', sans-serif;
-    background-color: #c5a98a; /* Nossa cor de destaque */
-    color: #111827; /* Um cinza escuro para o texto do botão */
+    font-size: 1rem;
     font-weight: 600;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px; /* Totalmente arredondado */
     text-decoration: none;
+  }
+
+  .whatsapp-button:hover {
+    background-color: rgba(29, 53, 87, 0.5);
+  }
+
+  .whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.75rem;
+    /* Filtro adicionado para igualar a cor dos outros ícones */
+    filter: invert(80%) sepia(10%) saturate(200%) hue-rotate(170deg) brightness(110%) contrast(90%);
+  }
+  
+  /* ESTILOS DOS SERVIÇOS */
+  .services-content {
+    margin-top: 5rem;
+  }
+  
+  .services-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2.5rem;
+    color: #a8dadc;
+  }
+
+  .services-grid {
+    display: grid;
+    gap: 1.5rem;
+    text-align: left;
+  }
+  
+  .service-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(168, 218, 220, 0.2);
+    border-radius: 0.5rem;
+    background-color: rgba(29, 53, 87, 0.3);
     transition: background-color 0.3s ease;
   }
 
-  .cta-button:hover {
-    background-color: #dcc1a5; /* Uma cor um pouco mais clara no hover */
+  .service-card:hover {
+    background-color: rgba(29, 53, 87, 0.5);
   }
 
-  /* Media Query para telas maiores */
+  .service-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+    filter: invert(80%) sepia(10%) saturate(200%) hue-rotate(170deg) brightness(110%) contrast(90%);
+  }
+
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #FFFAEE;
+  }
+
+  .card-description {
+    font-family: 'Lato', sans-serif;
+    color: #a8dadc;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  
+  .section-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+  }
+
+  .section-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .section-divider .shape-fill {
+    fill: white;
+  }
+
+  .chevron-down {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #729398;
+    border-bottom: 2px solid #729398;
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
   @media (min-width: 768px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .unified-hero-section {
+      padding: 4rem 1rem 5rem 1rem;
+    }
     .title {
-      font-size: 4rem; /* 64px */
+      font-size: 2.5rem;
     }
     .subtitle {
-      font-size: 1.25rem; /* 20px */
+      font-size: 1.1rem;
     }
   }
 </style>

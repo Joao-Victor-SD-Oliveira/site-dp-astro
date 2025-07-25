@@ -1,4 +1,5 @@
 ---
+// Este arquivo é um molde para o PDF.
 ---
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,14 +11,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos básicos para o PDF */
         body {
             font-family: 'Lato', sans-serif;
             color: #333;
-            background-color: white;
-            width: 800px;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .quote-container {
+            max-width: 800px;
             margin: 0 auto;
             padding: 40px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
         .header {
@@ -46,6 +53,7 @@
         }
         .client-info {
             margin-top: 30px;
+            line-height: 1.6;
         }
         .services-title {
             color: #3E646F;
@@ -57,6 +65,8 @@
         .services-list {
             list-style: none;
             padding: 0;
+            list-style-type: '• ';
+            padding-left: 1.2rem;
         }
         .services-list li {
             padding: 10px 0;
@@ -85,50 +95,68 @@
             color: #777;
             text-align: center;
         }
+
+        /* Estilos de Impressão */
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { padding: 0; background-color: white; display: flex; justify-content: center; align-items: center; height: 100%; font-size: 12pt; }
+            .quote-container { max-width: 90%; width: 90%; margin: 0; padding: 40px; box-shadow: none; border: none; }
+            body > *:not(.quote-container) { display: none; }
+            .quote-container, .quote-container * { visibility: visible; }
+            .quote-container { position: static; }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">DP Estratégico</div>
-        <div class="header-info">
-            <h2>Orçamento</h2>
-            <p id="quote-date"></p>
+    <div class="quote-container">
+        <div class="header">
+            <div class="logo">DP Estratégico</div>
+            <div class="header-info">
+                <h2>Orçamento</h2>
+                <p id="quote-date"></p>
+            </div>
         </div>
-    </div>
-    <div class="client-info">
-        <p><strong>Para:</strong> <span id="quote-client-name"></span></p>
-    </div>
-    <h3 class="services-title">Serviços Inclusos</h3>
-    <ul id="quote-services-list">
-        </ul>
-    <div class="total-section">
-        <p class="total-label">Valor Mensal:</p>
-        <p id="quote-total-price"></p>
-    </div>
-    <div class="footer">
-        <p>Este orçamento é uma estimativa e pode estar sujeito a alterações.</p>
-        <p>DP Estratégico | contato@dpestrategico.com.br</p>
+        <div class="client-info">
+            <p><strong>Para:</strong> <span id="quote-client-name"></span></p>
+            <p><strong>Tipo de Empresa:</strong> <span id="quote-company-type"></span></p>
+            <p><strong>Nº de Funcionários:</strong> <span id="quote-employee-count"></span></p>
+        </div>
+        <h3 class="services-title">Serviços Inclusos</h3>
+        <ul id="quote-services-list">
+            </ul>
+        <div class="total-section">
+            <p class="total-label">Valor Mensal:</p>
+            <p id="quote-total-price"></p>
+        </div>
+        <div class="footer">
+            <p>Este orçamento é uma estimativa e pode estar sujeito a alterações.</p>
+            <p>DP Estratégico | contato@dpestrategico.com.br</p>
+        </div>
     </div>
 
     <script is:inline>
-        // Este script preenche o molde com os dados da URL
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            
-            const clientName = params.get('name') || 'Não informado';
-            const total = params.get('total') || 'R$ 0,00';
-            const services = params.get('services')?.split(',') || [];
+        // SCRIPT ATUALIZADO PARA RECEBER MAIS DADOS
+        const params = new URLSearchParams(window.location.search);
+        const clientName = params.get('name') || 'Não informado';
+        const companyType = params.get('companyType') || 'Não informado';
+        const employeeCount = params.get('employeeCount') || 'Não informado';
+        const total = params.get('total') || 'R$ 0,00';
+        const services = params.get('services')?.split(',') || [];
 
-            document.getElementById('quote-date').innerText = `Data: ${new Date().toLocaleDateString('pt-BR')}`;
-            document.getElementById('quote-client-name').innerText = clientName;
-            document.getElementById('quote-total-price').innerText = total;
+        document.getElementById('quote-date').innerText = `Data: ${new Date().toLocaleDateString('pt-BR')}`;
+        document.getElementById('quote-client-name').innerText = clientName;
+        document.getElementById('quote-company-type').innerText = companyType;
+        document.getElementById('quote-employee-count').innerText = employeeCount;
+        document.getElementById('quote-total-price').innerText = total;
 
-            const servicesList = document.getElementById('quote-services-list');
-            services.forEach(service => {
-                const li = document.createElement('li');
-                li.textContent = decodeURIComponent(service);
-                servicesList.appendChild(li);
-            });
+        const servicesList = document.getElementById('quote-services-list');
+        servicesList.style.listStyleType = "'• '";
+        servicesList.style.paddingLeft = "1.2rem";
+
+        services.forEach(service => {
+            const li = document.createElement('li');
+            li.textContent = decodeURIComponent(service);
+            servicesList.appendChild(li);
         });
     </script>
 </body>
