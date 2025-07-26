@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Deixe seu Depoimento - DP Estratégico">
+  <main class="testimonial-form-page">
+    <div class="container">
+      <div class="header">
+        <h1 class="title">Sua Opinião é Importante para Nós</h1>
+        <p class="subtitle">Ficamos felizes em ouvir sobre sua experiência. Por favor, compartilhe seu feedback abaixo.</p>
+      </div>
+
+      <form 
+        action="https://formspree.io/f/mblkowjz" 
+        method="POST" 
+        class="form"
+        data-astro-reload 
+      >
+        <div class="input-wrapper">
+          <label for="name">Seu Nome</label>
+          <input type="text" id="name" name="name" placeholder="Ex: João da Silva" required />
+        </div>
+
+        <div class="input-wrapper">
+          <label for="company">Empresa (Opcional)</label>
+          <input type="text" id="company" name="company" placeholder="Ex: Silva & Filhos Ltda." />
+        </div>
+
+        <div class="input-wrapper">
+          <label for="quote">Seu Depoimento</label>
+          <textarea id="quote" name="quote" rows="6" placeholder="Descreva como foi sua experiência com nossos serviços..." required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Enviar Depoimento</button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* ... seus estilos permanecem os mesmos ... */
+  .testimonial-form-page {
+    padding: 4rem 1rem;
+    background-color: white;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #3E646F;
+  }
+  .subtitle {
+    font-size: 1.1rem;
+    color: #729398;
+    margin-top: 0.5rem;
+  }
+  .form {
+    background-color: #f9fafb;
+    padding: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+  }
+  .input-wrapper {
+    margin-bottom: 1.5rem;
+  }
+  .input-wrapper label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #3D636E;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+    box-sizing: border-box;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .submit-btn {
+    width: 100%;
+    background-color: #3E646F;
+    color: #FFFAEE;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .submit-btn:hover {
+    background-color: #31505A;
+  }
+</style>

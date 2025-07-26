@@ -1,17 +1,17 @@
 ---
 const testimonials = [
   { quote: `Serviço impecável e atendimento personalizado.
-Finalmente encontrei uma assessoria que entende as necessidades da minha pequena empresa.`, author: 'Ciclecia Souza' },
-  { quote: `A equipe é extremamente competente e ágil.
-Resolveram questões complexas de folha de pagamento que outros não conseguiram.
-Recomendo!`, author: 'João Victor' },
-  { quote: `Desde que contratamos a assessoria, tenho muito mais tranquilidade para focar no meu negócio.
-Profissionalismo e confiança definem o trabalho.`, author: 'José Silva' },
+Finalmente encontrei uma assessoria que entende as necessidades da minha pequena empresa.`, author: 'Joao Victor' },
 ];
 ---
 <section class="testimonials-section">
   <div class="container">
     <h2 class="section-title">O que dizem sobre nós</h2>
+
+    <div class="add-testimonial-link">
+      <a href="/deixar-depoimento">Deixe seu depoimento também</a>
+    </div>
+
     <div class="slider-container">
       {testimonials.map(testimonial => (
         <div class="testimonial-card">
@@ -38,8 +38,25 @@ Profissionalismo e confiança definem o trabalho.`, author: 'José Silva' },
     font-family: 'Playfair Display', serif;
     font-size: 2.25rem;
     text-align: center;
+    margin-bottom: 1rem; /* Diminuído para dar espaço ao novo link */
+  }
+
+  /* ESTILOS PARA O NOVO LINK */
+  .add-testimonial-link {
+    text-align: center;
     margin-bottom: 3rem;
   }
+  .add-testimonial-link a {
+    font-family: 'Lato', sans-serif;
+    color: #a8dadc;
+    text-decoration: underline;
+    font-style: italic;
+    transition: color 0.3s ease;
+  }
+  .add-testimonial-link a:hover {
+    color: #FFFAEE;
+  }
+
   .slider-container {
     display: flex;
     gap: 1.5rem;
@@ -69,12 +86,11 @@ Profissionalismo e confiança definem o trabalho.`, author: 'José Silva' },
     color: #a8dadc;
   }
 
-  /* Em telas maiores, mostramos 3 depoimentos de uma vez */
   @media (min-width: 768px) {
     .slider-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      overflow-x: visible; /* Remove a rolagem no desktop */
+      overflow-x: visible;
     }
   }
 </style>
